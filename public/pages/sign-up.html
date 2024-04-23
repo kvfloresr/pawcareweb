@@ -241,63 +241,42 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     var registerForm = document.getElementById('registrationForm');
-
-registerForm.addEventListener('submit', function(e) {
-  e.preventDefault();
-
-  // Recoger valores
-  var firstName = document.getElementById('firstName').value;
-  var lastName = document.getElementById('lastName').value;
-  var email = document.getElementById('email').value;
-  var password = document.getElementById('password').value;
-  var phone = document.getElementById('phone').value;
-
-  // Validar campos vacíos
-  if (!firstName || !lastName || !email || !password || !phone) {
-    console.error('Todos los campos son requeridos');
-    return;
-  }
-
-  // Validar formato del correo electrónico
-  var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  if (!emailPattern.test(email)) {
-    console.error('Correo electrónico no es válido');
-    return;
-  }
-
-  // Crear objeto de datos
-  var userData = {
-    first_name: firstName,
-    last_name: lastName,
-    email: email,
-    password: password,
-    phone: phone
-  };
-
-  // Enviar la solicitud POST
-  fetch('http://127.0.0.1:5000/auth/register', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(userData),
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('La solicitud no fue exitosa: ' + response.statusText);
-    }
-    return response.json();
-  })
-  .then(data => {
-    console.log('Registro exitoso:', data);
-    // Aquí puedes redireccionar o mostrar un mensaje de éxito
-  })
-  .catch(error => {
-    console.error('Error en la solicitud:', error);
+  
+    registerForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+  
+      // Crear un objeto FormData para recopilar datos del formulario
+      var formData = new FormData(registerForm);
+  
+      // Validaciones adicionales
+      var email = formData.get('email');
+      var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!emailPattern.test(email)) {
+        console.error('Correo electrónico no es válido');
+        return;
+      }
+  
+      // Enviar la solicitud POST con FormData
+      fetch('http://127.0.0.1:5000/auth/register', {
+        method: 'POST',
+        body: formData  // Envío de datos con FormData
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('La solicitud no fue exitosa: ' + response.statusText);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Registro exitoso:', data);
+        // Lógica post-registro, como redireccionamiento o mensaje de éxito
+      })
+      .catch(error => {
+        console.error('Error en la solicitud:', error);
+      });
+    });
   });
-});
-
-  });
+  
   
 </script>
   
