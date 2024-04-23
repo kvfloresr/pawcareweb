@@ -210,7 +210,7 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       var loginForm = document.getElementById('loginForm');
-    
+      
       loginForm.addEventListener('submit', function(e) {
         e.preventDefault();
     
@@ -218,14 +218,14 @@
         var password = document.getElementById('password').value;
     
         if (!email || !password) {
-          console.error('Todos los campos son requeridos');
+          alert('Todos los campos son requeridos');
           return;
         }
     
         // Validar formato del correo electrónico
         var emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!emailPattern.test(email)) {
-          console.error('Correo electrónico no es válido');
+          alert('Correo electrónico no es válido');
           return;
         }
     
@@ -248,13 +248,17 @@
           return response.json();
         })
         .then(data => {
-          console.log('Inicio de sesión exitoso:', data);
-          window.location.href = 'public/pages/dashboard';
-          // Almacena el token o datos de sesión, redirige, etc.
+          alert('Inicio de sesión exitoso');
+          // Redirige al dashboard
+          window.location.href = '/public/pages/dashboard.html';
         })
-        .catch(error => console.error('Error en la solicitud:', error));
+        .catch(error => {
+          alert('Error en el inicio de sesión');
+          console.error('Error en la solicitud:', error);
+        });
       });
     });
+    
   </script>
 
 
