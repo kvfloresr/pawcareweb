@@ -241,48 +241,62 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     var registerForm = document.getElementById('registrationForm');
-  
-    registerForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-  
-      // Recoger los valores de los campos del formulario
-      var firstName = document.getElementById('firstName').value;
-      var lastName = document.getElementById('lastName').value;
-      var email = document.getElementById('email').value;
-      var password = document.getElementById('password').value;
-      var phone = document.getElementById('phone').value;
-  
-      // Crear el objeto de datos del usuario
-      var userData = {
-        first_name: firstName,
-        last_name: lastName,
-        email: email,
-        password: password,
-        phone: phone
-      };
-  
-      // Enviar la solicitud POST a la API
-      fetch('http://127.0.0.1:5000/api/register', { // Cambia esto por la URL de tu API
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok ' + response.statusText);
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log(data);
-        // Aquí manejarías el redireccionamiento o la lógica post-registro
-      })
-      .catch(error => {
-        console.error('There has been a problem with your fetch operation:', error);
-      });
-    });
+
+registerForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  // Recoger valores
+  var firstName = document.getElementById('firstName').value;
+  var lastName = document.getElementById('lastName').value;
+  var email = document.getElementById('email').value;
+  var password = document.getElementById('password').value;
+  var phone = document.getElementById('phone').value;
+
+  // Validar campos vacíos
+  if (!firstName || !lastName || !email || !password || !phone) {
+    console.error('Todos los campos son requeridos');
+    return;
+  }
+
+  // Validar formato del correo electrónico
+  var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (!emailPattern.test(email)) {
+    console.error('Correo electrónico no es válido');
+    return;
+  }
+
+  // Crear objeto de datos
+  var userData = {
+    first_name: firstName,
+    last_name: lastName,
+    email: email,
+    password: password,
+    phone: phone
+  };
+
+  // Enviar la solicitud POST
+  fetch('http://127.0.0.1:5000/auth/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(userData),
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('La solicitud no fue exitosa: ' + response.statusText);
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Registro exitoso:', data);
+    // Aquí puedes redireccionar o mostrar un mensaje de éxito
+  })
+  .catch(error => {
+    console.error('Error en la solicitud:', error);
+  });
+});
+
   });
   
 </script>
