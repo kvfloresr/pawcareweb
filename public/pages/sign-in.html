@@ -98,14 +98,14 @@
                   <p class="mb-0">Introduce tu email y contraseña para iniciar sesión</p>
                 </div>
                 <div class="card-body">
-                  <form role="form">
+                  <form role="form" id="loginForm">
                     <label>Email</label>
                     <div class="mb-3">
-                      <input type="email" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="email-addon">
+                      <input type="email" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="email-addon" id="email">
                     </div>
                     <label>Contraseña</label>
                     <div class="mb-3">
-                      <input type="email" class="form-control" placeholder="Contraseña" aria-label="Password" aria-describedby="password-addon">
+                      <input type="password" class="form-control" placeholder="Contraseña" aria-label="Password" aria-describedby="password-addon" id="password">
                     </div>
                     <div class="form-check form-switch">
                       <input class="form-check-input" type="checkbox" id="rememberMe" checked="">
@@ -206,6 +206,58 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/soft-ui-dashboard.min.js?v=1.0.7"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var loginForm = document.getElementById('loginForm');
+    
+      loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+    
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+    
+        if (!email || !password) {
+          console.error('Todos los campos son requeridos');
+          return;
+        }
+    
+        // Validar formato del correo electrónico
+        var emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailPattern.test(email)) {
+          console.error('Correo electrónico no es válido');
+          return;
+        }
+    
+        const loginData = {
+          email,
+          password,
+        };
+    
+        fetch('http://127.0.0.1:5000/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(loginData),
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Error: ' + response.status + ' - ' + response.statusText);
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log('Inicio de sesión exitoso:', data);
+          window.location.href = '/pages/dashboard';
+          // Almacena el token o datos de sesión, redirige, etc.
+        })
+        .catch(error => console.error('Error en la solicitud:', error));
+      });
+    });
+  </script>
+
+
 </body>
 
 </html>
