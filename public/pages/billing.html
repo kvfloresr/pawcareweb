@@ -324,40 +324,43 @@
                 <h5>Agregar Mascota</h5>
               </div>
               <div class="card-body">
-                <form role="form text-left" enctype="multipart/form-data">
-                  <!-- Los campos como ID y owner_id generalmente no se incluyen en el formulario ya que son manejados por el backend. -->
+                <form role="form text-left" enctype="multipart/form-data" id="petForm"> <!-- ID para identificar el formulario -->
                   <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Nombre de la Mascota" aria-label="Pet's Name" required>
+                    <label for="petName" class="form-label">Nombre de la Mascota</label>
+                    <input type="text" class="form-control" placeholder="Nombre de la Mascota" id="petName" required> <!-- Asignación de ID -->
                   </div>
                   <div class="mb-3">
-                    <!-- Suponiendo que species_id corresponde a un select de especies disponibles. -->
-                    <select class="form-control" aria-label="Species" required>
+                    <label for="species" class="form-label">Especie</label> <!-- Agregada etiqueta para claridad -->
+                    <select class="form-control" id="species" required> <!-- Asignación de ID -->
                       <option value="">Selecciona la Especie</option>
                       <!-- Opciones de especies se deben cargar aquí -->
                     </select>
                   </div>
                   <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Raza" aria-label="Breed" required>
+                    <label for="breed" class="form-label">Raza</label> <!-- Agregada etiqueta -->
+                    <input type="text" class="form-control" placeholder="Raza" id="breed" required> <!-- Asignación de ID -->
                   </div>
                   <div class="mb-3">
-                    <select class="form-control" aria-label="Sex" required>
-                      <option value="">Sexo</option>
+                    <label for="sex" class="form-label">Sexo</label> <!-- Agregada etiqueta -->
+                    <select class="form-control" id="sex" required> <!-- Asignación de ID -->
+                      <option value="">Selecciona el Sexo</option>
                       <option value="Male">Macho</option>
                       <option value="Female">Hembra</option>
                     </select>
                   </div>
                   <div class="mb-3">
-                    <input type="date" class="form-control" placeholder="Fecha de Nacimiento" aria-label="Birth Date" required>
+                    <label for="birthDate" class="form-label">Fecha de Nacimiento</label> <!-- Agregada etiqueta -->
+                    <input type="date" class="form-control" id="birthDate" required> <!-- Asignación de ID -->
                   </div>
                   <div class="mb-3">
-                    <label for="pet_image" class="form-label">Imagen de la Mascota</label>
-                    <input type="file" class="form-control" id="pet_image" aria-label="Pet Image" required>
+                    <label for="petImage" class="form-label">Imagen de la Mascota</label>
+                    <input type="file" class="form-control" id="petImage" required> <!-- Asignación de ID -->
                   </div>
                   <div class="text-center">
-                    <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Registrar Mascota</button>
+                    <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Registrar Mascota</button> <!-- Ajustado para envío -->
                   </div>
                 </form>
-              </div>
+              </div>              
             </div>
           </div>
         </div>
@@ -482,6 +485,61 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/soft-ui-dashboard.min.js?v=1.0.7"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var addPetForm = document.getElementById('addPetForm'); // Asegúrate de usar el ID correcto del formulario
+    
+      addPetForm.addEventListener('submit', function(e) {
+        e.preventDefault(); // Evita el comportamiento por defecto del formulario
+    
+        var petName = document.getElementById('petName').value; // ID para el campo del nombre
+        var speciesId = document.getElementById('species').value; // ID para el campo de la especie
+        var breed = document.getElementById('breed').value; // ID para el campo de la raza
+        var sex = document.getElementById('sex').value; // ID para el campo del sexo
+        var birthDate = document.getElementById('birthDate').value; // ID para el campo de la fecha de nacimiento
+        var petImage = document.getElementById('pet_image').files[0]; // ID para el campo de la imagen
+    
+        if (!petName || !speciesId || !breed || !sex || !birthDate || !petImage) {
+          alert('Todos los campos son requeridos.');
+          return;
+        }
+    
+        // Construye el objeto FormData para manejar la subida de archivos
+        var formData = new FormData();
+        formData.append('petName', petName);
+        formData.append('speciesId', speciesId);
+        formData.append('breed', breed);
+        formData.append('sex', sex);
+        formData.append('birthDate', birthDate);
+        formData.append('petImage', petImage);
+    
+        fetch('http://127.0.0.1:5000/pets/add', {
+          method: 'POST',
+          headers: {
+            
+          },
+          body: formData, 
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Error: ' + response.status + ' - ' + response.statusText);
+          }
+          return response.json();
+        })
+        .then(data => {
+          alert('Mascota registrada exitosamente');
+          console.log('Mascota agregada:', data); // Puedes manejar los datos devueltos
+        })
+        .catch(error => {
+          alert('Error al registrar la mascota.');
+          console.error('Error en la solicitud:', error);
+        });
+      });
+    });
+    
+  </script>
+
 </body>
 
 </html>

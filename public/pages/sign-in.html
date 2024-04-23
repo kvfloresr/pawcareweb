@@ -98,24 +98,29 @@
                   <p class="mb-0">Introduce tu email y contraseña para iniciar sesión</p>
                 </div>
                 <div class="card-body">
-                  <form role="form" id="loginForm">
-                    <label>Email</label>
+                  <form role="form" id="loginForm"> <!-- ID del formulario para JavaScript -->
+                    <!-- Campo de Email -->
                     <div class="mb-3">
-                      <input type="email" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="email-addon" id="email">
+                      <label for="email" class="form-label">Correo Electrónico</label> <!-- Etiqueta añadida para claridad -->
+                      <input type="email" class="form-control" placeholder="Correo Electrónico" aria-label="Email" aria-describedby="email-addon" id="email" required> <!-- Añadido atributo required -->
                     </div>
-                    <label>Contraseña</label>
+                    <!-- Campo de Contraseña -->
                     <div class="mb-3">
-                      <input type="password" class="form-control" placeholder="Contraseña" aria-label="Password" aria-describedby="password-addon" id="password">
+                      <label for="password" class="form-label">Contraseña</label> <!-- Etiqueta añadida -->
+                      <input type="password" class="form-control" placeholder="Contraseña" aria-label="Contraseña" aria-describedby="password-addon" id="password" required> <!-- Añadido atributo required -->
                     </div>
+                    <!-- Campo para Recordarme -->
                     <div class="form-check form-switch">
-                      <input class="form-check-input" type="checkbox" id="rememberMe" checked="">
+                      <input class="form-check-input" type="checkbox" id="rememberMe" checked>
                       <label class="form-check-label" for="rememberMe">Recordarme</label>
                     </div>
+                    <!-- Botón de Inicio de Sesión -->
                     <div class="text-center">
-                      <button type="button" class="btn bg-gradient-info w-100 mt-4 mb-0">Iniciar Sesión</button>
+                      <button type="submit" class="btn bg-gradient-info w-100 mt-4 mb-0">Iniciar Sesión</button> <!-- Cambio de button type a "submit" -->
                     </div>
                   </form>
                 </div>
+                
                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
                   <p class="mb-4 text-sm mx-auto">
                     ¿No tienes una cuenta?
@@ -195,7 +200,7 @@
   <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
 
 
-  
+
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       var loginForm = document.getElementById('loginForm');
