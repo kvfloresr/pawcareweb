@@ -3707,19 +3707,19 @@ fieldset:disabled .btn {
 
 .btn-primary {
   --bs-btn-color: #fff;
-  --bs-btn-bg: #cb0c9f;
-  --bs-btn-border-color: #cb0c9f;
+  --bs-btn-bg: #FF913F;
+  --bs-btn-border-color: #FF913F;
   --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #ad0a87;
-  --bs-btn-hover-border-color: #a20a7f;
+  --bs-btn-hover-bg: #FF913F;
+  --bs-btn-hover-border-color: #FF913F;
   --bs-btn-focus-shadow-rgb: 211, 48, 173;
   --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #a20a7f;
-  --bs-btn-active-border-color: #980977;
+  --bs-btn-active-bg: #FF913F;
+  --bs-btn-active-border-color: #FF913F;
   --bs-btn-active-shadow: none;
   --bs-btn-disabled-color: #fff;
-  --bs-btn-disabled-bg: #cb0c9f;
-  --bs-btn-disabled-border-color: #cb0c9f;
+  --bs-btn-disabled-bg: #FF913F;
+  --bs-btn-disabled-border-color: #FF913F;
 }
 
 .btn-secondary {
@@ -26695,4 +26695,13 @@ pre[class*="language-"] {
   }
 }
 
-/*# sourceMappingURL=dashboard-free.css.map */
+
+.card {
+  transition: transform .2s; 
+}
+
+.card:hover {
+  transform: scale(1.05); 
+}
+
+

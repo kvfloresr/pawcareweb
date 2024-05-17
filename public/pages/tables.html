@@ -302,60 +302,70 @@
     <!-- End Navbar -->
     <!-- Formulario de Citas para Mascotas -->
     <section class="min-vh-100 mb-8">
-      <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg" style="background-image: url('../assets/img/curved-images/fondovet.png'); height:2px">
-        <span class="mask bg-gradient-dark opacity-6"></span>
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-5 text-center mx-auto">
-              <h1 class="text-white mb-2 mt-5">Agenda tu cita</h1>
-              <p class="text-lead text-white">Rellena el formulario para programar una cita para tu mascota.</p>
-            </div>
+      <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg" style="background-image: url('../assets/img/curved-images/fondovet.png');">
+          <span class="mask bg-gradient-dark opacity-6"></span>
+          <div class="container">
+              <div class="row justify-content-center">
+                  <div class="col-lg-5 text-center">
+                      <h1 class="text-white mb-2 mt-5">Registro de Citas</h1>
+                      <p class="text-lead text-white">Agenda una cita para tu mascota.</p>
+                  </div>
+              </div>
           </div>
-        </div>
       </div>
       <div class="container">
-        <div class="row mt-lg-n10 mt-md-n11 mt-n10">
-          <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
-            <div class="card z-index-0">
-              <div class="card-header text-center pt-4">
-                <h5>Formulario de Citas</h5>
+          <div class="row mt-lg-n10 mt-md-n11 mt-n10">
+              <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
+                  <div class="card z-index-0">
+                      <div class="card-header text-center pt-4">
+                          <form id="appointmentForm">
+                            <div class="mb-3">
+                              <label for="userEmail" class="form-label">Correo Electrónico del Usuario</label>
+                              <input type="text" class="form-control" id="userEmail" required>
+                          </div>
+                            <div class="mb-3">
+
+                              <label for="petName" class="form-label">Id de la Mascota</label>
+                              <input type="text" class="form-control" id="petName" required>
+                          </div>
+                              <div class="mb-3">
+                                  <label for="doctorId" class="form-label">Doctor</label>
+                                  <select class="form-control" id="doctorId" required>
+                                      <option value="">Selecciona un Doctor</option>
+                                      <!-- Opciones de doctores cargadas dinámicamente -->
+                                  </select>
+                              </div>
+                              <div class="mb-3">
+                                <label for="categoryId" class="form-label">Categoría</label>
+                                <select class="form-control" id="categoryId" required>
+                                    <option value="">Selecciona una Categoría</option>
+                                    <!-- Opciones de doctores cargadas dinámicamente -->
+                                </select>
+                            </div>
+                              <div class="mb-3">
+                                  <label for="appointmentDate" class="form-label">Fecha</label>
+                                  <input type="date" class="form-control" id="appointmentDate" required>
+                              </div>
+                              <div class="mb-3">
+                                  <label for="appointmentTime" class="form-label">Hora</label>
+                                  <select class="form-control" id="appointmentTime" required>
+                                      <option value="">Selecciona una Hora</option>
+                                      <!-- Horas generadas dinámicamente en el script -->
+                                  </select>
+                              </div>
+                              <div class="mb-3">
+                                  <label for="description" class="form-label">Descripción</label>
+                                  <input type="text" class="form-control" id="description" required>
+                              </div>
+                              <button type="submit" class="btn btn-primary">Agendar Cita</button>
+                          </form>                                    
+                      </div>
+                  </div>
               </div>
-              <div class="card-body">
-                <form role="form text-left" id="appointmentForm"> <!-- ID para identificar el formulario -->
-                  <div class="mb-3">
-                    <label for="petId" class="form-label">ID de Mascota</label>
-                    <input type="number" class="form-control" placeholder="ID de Mascota" id="petId" required> <!-- Asignación de ID -->
-                  </div>
-                  <div class="mb-3">
-                    <label for="doctorId" class="form-label">ID del Doctor</label>
-                    <input type="number" class="form-control" placeholder="ID del Doctor" id="doctorId" required> <!-- Asignación de ID -->
-                  </div>
-                  <div class="mb-3">
-                    <label for="appointmentDate" class="form-label">Fecha de la Cita</label>
-                    <input type="date" class="form-control" id="appointmentDate" required> <!-- Asignación de ID -->
-                  </div>
-                  <div class="mb-3">
-                    <label for="appointmentTime" class="form-label">Hora de la Cita</label>
-                    <input type="time" class="form-control" id="appointmentTime" required> <!-- Asignación de ID -->
-                  </div>
-                  <div class="mb-3">
-                    <label for="description" class="form-label">Descripción</label>
-                    <textarea class="form-control" id="description" placeholder="Descripción" rows="3" required></textarea> <!-- Asignación de ID -->
-                  </div>
-                  <div class="text-center">
-                    <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Programar Cita</button>
-                  </div>
-                </form>
-                <div class="text-center">
-                  <a href="javascript:;" class="text-dark font-weight-bolder">Ver citas programadas</a>
-                </div>
-              </div>              
-            </div>
+              </div>
           </div>
-        </div>
-      </div>
-    </section>
-    
+  </section>
+  
     
     
   
@@ -380,57 +390,159 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      var appointmentForm = document.getElementById('appointmentForm'); // Asegúrate de usar el ID correcto del formulario
-      
-      appointmentForm.addEventListener('submit', function(e) {
-        e.preventDefault(); // Detiene el comportamiento por defecto del formulario
-        
-        var petId = document.getElementById('petId').value; // ID para el campo del ID de mascota
-        var doctorId = document.getElementById('doctorId').value; // ID para el campo del ID del doctor
-        var date = document.getElementById('appointmentDate').value; // ID para el campo de la fecha
-        var time = document.getElementById('appointmentTime').value; // ID para el campo de la hora
-        var description = document.getElementById('description').value; // ID para el campo de la descripción
-    
-        // Verificación de campos requeridos
-        if (!petId || !doctorId || !date || !time || !description) {
-          alert('Todos los campos son requeridos.');
-          return;
-        }
-    
-        // Creación del objeto de datos
-        const appointmentData = {
-          pet_id: petId,
-          doctor_id: doctorId,
-          date,
-          time,
-          description,
-        };
-    
-        fetch('http://127.0.0.1:5000/appointments/schedule', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(appointmentData),
+        fetch('http://127.0.0.1:5000/doctors/namesdoctors', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
         })
         .then(response => {
-          if (!response.ok) {
-            throw new Error('Error: ' + response.status + ' - ' + response.statusText);
-          }
-          return response.json();
+            if (!response.ok) {
+                throw new Error('Error: ' + response.status + ' - ' + response.statusText);
+            }
+            return response.json();
         })
         .then(data => {
-          alert('Cita programada exitosamente');
-          console.log('Cita programada:', data); // Puedes manejar la respuesta
+            const doctorSelect = document.getElementById('doctorId');
+            if (data.doctors_names && Array.isArray(data.doctors_names)) {
+                data.doctors_names.forEach(doctor => {
+                    const option = document.createElement('option');
+                    option.value = doctor.id;  // Usar ID del doctor como valor
+                    option.text = doctor.name;  // Nombre del doctor como texto
+                    doctorSelect.appendChild(option);
+                });
+            } else {
+                console.error('Incorrect data format:', data);
+                alert('Error loading doctor names: Incorrect data format.');
+            }
         })
         .catch(error => {
-          alert('Error al programar la cita.');
-          console.error('Error en la solicitud:', error);
+            console.error('Error loading doctor names:', error);
+            alert('Error loading doctor names.');
         });
-      });
+    
+
+    const token = sessionStorage.getItem('authToken'); // Asegúrate de que el token se obtiene correctamente
+        if (!token) {
+            console.error('No autenticado: No se encontró token de autenticación.');
+            alert('No estás autenticado. Por favor, inicia sesión.');
+            return;
+        }
+    
+        fetch('http://127.0.0.1:5000/categoryquotes/names', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token  // Añade el token aquí
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status} - ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            const categorySelect = document.getElementById('categoryId');
+            if (data.category_names && Array.isArray(data.category_names)) {
+                data.category_names.forEach(category => {
+                    const option = document.createElement('option');
+                    option.value = category.id;
+                    option.text = category.name;
+                    categorySelect.appendChild(option);
+                });
+            } else {
+                console.error('Incorrect data format:', data);
+                alert('Error loading category names: Incorrect data format.');
+            }
+        })
+        .catch(error => {
+            console.error('Error loading category names:', error);
+            alert('Error loading category names.');
+        });
+    });
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var timeSelect = document.getElementById('appointmentTime');
+      for (var hour = 8; hour < 18; hour++) {
+          [0, 20, 40].forEach(function(minute) {
+              var timeOption = document.createElement('option');
+              var formattedTime = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+              timeOption.value = formattedTime;
+              timeOption.textContent = formattedTime;
+              timeSelect.appendChild(timeOption);
+          });
+      }
     });
     
-  </script>
+    </script>
+    
+
+    
+
+      <script>  
+        document.addEventListener('DOMContentLoaded', function() {
+          var appointmentForm = document.getElementById('appointmentForm'); 
+          appointmentForm.addEventListener('submit', function(e) {
+              e.preventDefault();
+      
+              var userEmail = document.getElementById('userEmail').value;
+              var doctorId = document.getElementById('doctorId').value;
+              var categoryId = document.getElementById('categoryId').value;
+      
+              if (!userEmail) {
+                  alert('Ingrese un correo electrónico válido.');
+                  return;
+              }
+      
+              var appointmentData = {
+                  email: userEmail,
+                  pet_name: document.getElementById('petName').value,
+                  doctor_id: doctorId,
+                  date: document.getElementById('appointmentDate').value,
+                  time: document.getElementById('appointmentTime').value,
+                  description: document.getElementById('description').value,
+                  category_id: categoryId,
+              };
+
+              console.log("Datos enviados:", appointmentData);
+      
+              var authToken = sessionStorage.getItem('authToken');
+              if (!authToken) {
+                  alert('No estás autenticado o tu sesión ha expirado.');
+                  return;
+              }
+      
+              fetch('http://127.0.0.1:5000/appointments/add_appointment_admin', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'Authorization': 'Bearer ' + authToken
+                  },
+                  body: JSON.stringify(appointmentData)
+              })
+              .then(response => {
+                  if (!response.ok) {
+                      throw new Error(`Error: ${response.status} - ${response.statusText}`);
+                  }
+                  return response.json();
+              })
+              .then(data => {
+                  alert('Cita registrada exitosamente');
+                  appointmentForm.reset();  
+              })
+              .catch(error => {
+                  console.error('Error en la solicitud:', error);
+                  alert('Error al registrar la cita: ' + error.message);
+              });
+          });
+      });
+      
+      </script>
+      
+
+    
 </body>
 
 </html>

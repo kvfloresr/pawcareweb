@@ -321,44 +321,41 @@
           <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
             <div class="card z-index-0">
               <div class="card-header text-center pt-4">
-                <!-- Formulario de Agregar Mascota -->
-<form role="form text-left" enctype="multipart/form-data" id="addPetForm"> <!-- ID ajustado -->
-  <div class="mb-3">
-    <label for="petName" class="form-label">Nombre de la Mascota</label>
-    <input type="text" class="form-control" placeholder="Nombre de la Mascota" id="petName" required> <!-- Asignación de ID -->
-  </div>
-  <div class="mb-3">
-    <label for="species" class="form-label">Especie</label>
-    <select class="form-control" id="species" required> <!-- ID para especie -->
-      <option value="">Selecciona la Especie</option>
-      <!-- Las especies se deben cargar dinámicamente desde la base de datos -->
-    </select>
-  </div>
-  <div class="mb-3">
-    <label for="breed" class="form-label">Raza</label>
-    <input type="text" class="form-control" placeholder="Raza" id="breed" required> <!-- ID para raza -->
-  </div>
-  <div class="mb-3">
-    <label for="sex" class="form-label">Sexo</label>
-    <select class="form-control" id="sex" required> <!-- ID para sexo -->
-      <option value="">Selecciona el Sexo</option>
-      <option value="Macho">Macho</option>
-      <option value="Hembra">Hembra</option>
-    </select>
-  </div>
-  <div class="mb-3">
-    <label for="birthDate" class="form-label">Fecha de Nacimiento</label>
-    <input type="date" class="form-control" id="birthDate" required> <!-- ID para fecha de nacimiento -->
-  </div>
-  <div class="mb-3">
-    <label for="petImage" class="form-label">Imagen de la Mascota</label>
-    <input type="file" class="form-control" id="petImage" required> <!-- ID para imagen -->
-  </div>
-  <div class="text-center">
-    <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Registrar Mascota</button> <!-- Ajustado para envío -->
-  </div>
-</form>
-
+                <form id="addPetForm">
+                  <div class="mb-3">
+                      <label for="userEmail" class="form-label">Correo Electrónico del Usuario</label>
+                      <input type="email" class="form-control" id="userEmail" required>
+                  </div>
+                  <div class="mb-3">
+                      <label for="petName" class="form-label">Nombre de la Mascota</label>
+                      <input type="text" class="form-control" id="petName" required>
+                  </div>
+                  <div class="mb-3">
+                      <label for="species" class="form-label">Especie</label>
+                      <select class="form-control" id="species" required>
+                          <option value="">Selecciona la Especie</option>
+                          <!-- Opciones de especies cargadas dinámicamente -->
+                      </select>
+                  </div>
+                  <div class="mb-3">
+                      <label for="breed" class="form-label">Raza</label>
+                      <input type="text" class="form-control" id="breed" required>
+                  </div>
+                  <div class="mb-3">
+                      <label for="sex" class="form-label">Sexo</label>
+                      <select class="form-control" id="sex" required>
+                          <option value="">Selecciona el Sexo</option>
+                          <option value="Macho">Macho</option>
+                          <option value="Hembra">Hembra</option>
+                      </select>
+                  </div>
+                  <div class="mb-3">
+                      <label for="birthDate" class="form-label">Fecha de Nacimiento</label>
+                      <input type="date" class="form-control" id="birthDate" required>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Registrar Mascota</button>
+              </form>
+              
             </div>
           </div>
         </div>
@@ -486,192 +483,97 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      var addPetForm = document.getElementById('addPetForm'); // Asegúrate de usar el ID correcto del formulario
-    
-      addPetForm.addEventListener('submit', function(e) {
-        e.preventDefault(); // Evita el comportamiento por defecto del formulario
-    
-        var petName = document.getElementById('petName').value; // ID para el campo del nombre
-        var speciesId = document.getElementById('species').value; // ID para el campo de la especie
-        var breed = document.getElementById('breed').value; // ID para el campo de la raza
-        var sex = document.getElementById('sex').value; // ID para el campo del sexo
-        var birthDate = document.getElementById('birthDate').value; // ID para el campo de la fecha de nacimiento
-        var petImage = document.getElementById('pet_image').files[0]; // ID para el campo de la imagen
-    
-        if (!petName || !speciesId || !breed || !sex || !birthDate || !petImage) {
-          alert('Todos los campos son requeridos.');
-          return;
-        }
-    
-        // Construye el objeto FormData para manejar la subida de archivos
-        var formData = new FormData();
-        formData.append('petName', petName);
-        formData.append('speciesId', speciesId);
-        formData.append('breed', breed);
-        formData.append('sex', sex);
-        formData.append('birthDate', birthDate);
-        formData.append('petImage', petImage);
-    
-        fetch('http://127.0.0.1:5000/pets/add', {
-          method: 'POST',
+      fetch('http://127.0.0.1:5000/species/namespecies', {
+          method: 'GET',
           headers: {
-            
-          },
-          body: formData, 
-        })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Error: ' + response.status + ' - ' + response.statusText);
+              'Content-Type': 'application/json',
           }
-          return response.json();
-        })
-        .then(data => {
-          alert('Mascota registrada exitosamente');
-          console.log('Mascota agregada:', data); // Puedes manejar los datos devueltos
-        })
-        .catch(error => {
-          alert('Error al registrar la mascota.');
-          console.error('Error en la solicitud:', error);
-        });
-      });
-    });
-    
-  </script>
-
-  <script>
-document.addEventListener('DOMContentLoaded', function() {
-  var addPetForm = document.getElementById('addPetForm'); // Asegúrate de usar el ID correcto del formulario
-  
-  addPetForm.addEventListener('submit', function(e) {
-    e.preventDefault(); // Evita el comportamiento por defecto del formulario
-
-    var petName = document.getElementById('petName').value;
-    var species = document.getElementById('species').value;
-    var breed = document.getElementById('breed').value;
-    var sex = document.getElementById('sex').value;
-    var birthDate = document.getElementById('birthDate').value;
-    var petImage = document.getElementById('petImage').files[0];
-
-    if (!petName || !species || !breed || !sex || !birthDate || !petImage) {
-      alert('Todos los campos son requeridos.');
-      return;
-    }
-
-    var formData = new FormData();
-    formData.append('petName', petName);
-    formData.append('species', species);
-    formData.append('breed', breed);
-    formData.append('sex', sex);
-    formData.append('birthDate', birthDate);
-    formData.append('petImage', petImage);
-
-    fetch('http://127.0.0.1:5000/pets/add', {
-      method: 'POST',
-      headers: {
-        // Se puede añadir la autenticación o cualquier otro encabezado aquí
-      },
-      body: formData, // Datos del formulario incluyendo archivos
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Error: ' + response.status + ' - ' + response.statusText);
-      }
-      return response.json();
-    })
-    .then(data => {
-      alert('Mascota registrada exitosamente');
-      console.log('Mascota agregada:', data); // Datos adicionales si son necesarios
-    })
-    .catch(error => {
-      alert('Error al registrar la mascota.');
-      console.error('Error en la solicitud:', error);
-    });
-  });
-
-  // Ejemplo de carga de especies desde la base de datos
-  fetch('http://127.0.0.1:5000/species/get_all', {
-    method: 'GET'
-  })
-  .then(response => response.json())
-  .then(data => {
-    var speciesSelect = document.getElementById('species');
-    data.forEach(species => {
-      var option = document.createElement('option');
-      option.value = species.id;
-      option.textContent = species.name;
-      speciesSelect.appendChild(option);
-    });
-  })
-  .catch(error => console.error('Error cargando especies:', error));
-});
-</script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var addPetForm = document.getElementById('addPetForm'); // Asegúrate de usar el ID correcto del formulario
-    
-    addPetForm.addEventListener('submit', function(e) {
-      e.preventDefault(); // Evita el comportamiento por defecto del formulario
-  
-      var petName = document.getElementById('petName').value;
-      var species = document.getElementById('species').value;
-      var breed = document.getElementById('breed').value;
-      var sex = document.getElementById('sex').value;
-      var birthDate = document.getElementById('birthDate').value;
-      var petImage = document.getElementById('petImage').files[0];
-  
-      if (!petName || !species || !breed || !sex || !birthDate || !petImage) {
-        alert('Todos los campos son requeridos.');
-        return;
-      }
-  
-      var formData = new FormData();
-      formData.append('petName', petName);
-      formData.append('species', species);
-      formData.append('breed', breed);
-      formData.append('sex', sex);
-      formData.append('birthDate', birthDate);
-      formData.append('petImage', petImage);
-  
-      fetch('http://127.0.0.1:5000/pets/add', {
-        method: 'POST',
-        headers: {
-          // Se puede añadir la autenticación o cualquier otro encabezado aquí
-        },
-        body: formData, // Datos del formulario incluyendo archivos
       })
       .then(response => {
-        if (!response.ok) {
-          throw new Error('Error: ' + response.status + ' - ' + response.statusText);
-        }
-        return response.json();
+          if (!response.ok) {
+              throw new Error('Error: ' + response.status + ' - ' + response.statusText);
+          }
+          return response.json();
       })
       .then(data => {
-        alert('Mascota registrada exitosamente');
-        console.log('Mascota agregada:', data); // Datos adicionales si son necesarios
+          const speciesSelect = document.getElementById('species');
+          if (data.species_names && Array.isArray(data.species_names)) {
+              data.species_names.forEach(species => {
+                  const option = document.createElement('option');
+                  option.value = species.id; // Si quieres usar el ID como valor
+                  option.text = species.name; // Asegúrate de usar la propiedad correcta para el nombre
+                  speciesSelect.appendChild(option);
+              });
+          } else {
+              console.error('Formato de datos incorrecto:', data);
+              alert('Error al cargar las especies: Formato de datos incorrecto.');
+          }
       })
       .catch(error => {
-        alert('Error al registrar la mascota.');
-        console.error('Error en la solicitud:', error);
+          console.error('Error al cargar las especies:', error);
+          alert('Error al cargar las especies.');
       });
-    });
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      var addPetForm = document.getElementById('addPetForm');
+      addPetForm.addEventListener('submit', function(e) {
+          e.preventDefault();
   
-    // Ejemplo de carga de especies desde la base de datos
-    fetch('http://127.0.0.1:5000/species/get_all', {
-      method: 'GET'
-    })
-    .then(response => response.json())
-    .then(data => {
-      var speciesSelect = document.getElementById('species');
-      data.forEach(species => {
-        var option = document.createElement('option');
-        option.value = species.id;
-        option.textContent = species.name;
-        speciesSelect.appendChild(option);
+          var userEmail = document.getElementById('userEmail').value;  // Verifica que este ID sea correcto y esté en tu formulario
+          if (!userEmail) {
+              alert('Ingrese un correo electrónico válido.');
+              return;
+          }
+  
+          var petData = {
+              email: userEmail,
+              name: document.getElementById('petName').value,
+              species_id: parseInt(document.getElementById('species').value),
+              breed: document.getElementById('breed').value,
+              sex: document.getElementById('sex').value,
+              birth_date: document.getElementById('birthDate').value,
+              status_view: 'Visible'
+          };
+  
+          var authToken = sessionStorage.getItem('authToken');  // Asegúrate de que el token se guarde en el sessionStorage al autenticar
+          if (!authToken) {
+              alert('No estás autenticado o tu sesión ha expirado.');
+              return;
+          }
+  
+          fetch('http://127.0.0.1:5000/pets/add_admin', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + authToken
+              },
+              body: JSON.stringify(petData)
+          })
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error(`Error: ${response.status} - ${response.statusText}`);
+              }
+              return response.json();
+          })
+          .then(data => {
+              alert('Mascota registrada exitosamente');
+              addPetForm.reset();  // Limpia el formulario
+          })
+          .catch(error => {
+              console.error('Error en la solicitud:', error);
+              alert('Error al registrar la mascota: ' + error.message);
+          });
       });
-    })
-    .catch(error => console.error('Error cargando especies:', error));
   });
   </script>
+  
+  
+  
+
+
   
 
 </body>
