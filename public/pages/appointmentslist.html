@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
-    <title>Lista de Mascotas</title>
+    <title>Lista de Citas</title>
     <!-- Fonts and icons -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Nucleo Icons -->
@@ -29,7 +29,7 @@
         <div class="collapse navbar-collapse h-auto w-auto " id="sidenav-collapse-main">
         <ul class="navbar-nav">
             <li class="nav-item">
-            <a class="nav-link" href="../pages/dashboard.html">
+            <a class="nav-link  " href="../pages/dashboard.html">
                 <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                 <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <title>shop </title>
@@ -49,7 +49,7 @@
             </a>
             </li>
             <li class="nav-item">
-            <a class="nav-link  " data-bs-toggle="collapse" href="#appointmentMenu" role="button" aria-expanded="false" aria-controls="appointmentMenu">
+            <a class="nav-link  active" data-bs-toggle="collapse" href="#appointmentMenu" role="button" aria-expanded="false" aria-controls="appointmentMenu">
                 <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                 <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <title>office</title>
@@ -80,7 +80,7 @@
             </div>
             </li>
             <li class="nav-item">
-            <a class="nav-link active " data-bs-toggle="collapse" href="#petMenu" role="button" aria-expanded="false" aria-controls="petMenu">
+            <a class="nav-link  " data-bs-toggle="collapse" href="#petMenu" role="button" aria-expanded="false" aria-controls="petMenu">
                 <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                 <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <title>credit-card</title>
@@ -218,7 +218,8 @@
             </div>
             </div>
             </li>
-
+            <li class="nav-item mt-3">
+            </li>
             <li class="nav-item">
             <a class="nav-link  " href="../pages/profile.html">
                 <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -260,12 +261,11 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                     <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Páginas</a></li>
-                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Mascotas</li>
+                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Citas</li>
                     </ol>
-                    <h6 class="font-weight-bolder mb-0">Lista de Mascotas</h6>
+                    <h6 class="font-weight-bolder mb-0">Lista de Citas</h6>
                 </nav>
-                <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-                    
+                
                 </div>
             </nav>
         <!-- End Navbar -->
@@ -274,13 +274,13 @@
                 <div class="col-12">
                     <div class="card mb-4">
                         <div class="card-header pb-0">
-                            <h6>Mascotas registradas</h6> 
+                            <h6>Citas programadas</h6> <!-- Cambiado de Mascotas registradas a Citas programadas -->
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
                             <div class="table-responsive p-0">
                                 <div class="container-fluid py-4">
-                                    <div class="row" id="petsContainer">
-                                        <!-- Las tarjetas de mascotas se añadirán aquí dinámicamente -->
+                                    <div class="row" id="appointmentsContainer">
+                                        <!-- Las tarjetas de citas se añadirán aquí dinámicamente -->
                                     </div>
                                 </div>
                             </div>
@@ -289,6 +289,49 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Modal para editar cita -->
+<div class="modal fade" id="editAppointmentModal" tabindex="-1" aria-labelledby="editAppointmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editAppointmentModalLabel">Editar Cita</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editAppointmentForm">
+                    <input type="hidden" id="editAppointmentId">
+                    <div class="mb-3">
+                        <label for="editDate" class="form-label">Fecha</label>
+                        <input type="date" class="form-control" id="editDate" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editTime" class="form-label">Hora</label>
+                        <input type="time" class="form-control" id="editTime" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editDescription" class="form-label">Descripción</label>
+                        <input type="text" class="form-control" id="editDescription" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editStatus" class="form-label">Estado</label>
+                        <select class="form-control" id="editStatus" required>
+                            <option value="">Selecciona un Estado</option>
+                            <option value="Pendiente">Pendiente</option>
+                            <option value="Confirmada">Confirmada</option>
+                            <option value="Cancelada">Cancelada</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="submitEditAppointment()">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
     </div>
 </div>
 
@@ -306,66 +349,73 @@
                 alert('No estás autenticado o tu sesión ha expirado.');
                 return; // Detiene la ejecución si no hay token
             }
-
-            fetch('http://127.0.0.1:5000/pets/search_admin', {
+        
+            fetch('http://127.0.0.1:5000/appointments/pendingappointmentadmin', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + authToken  
+                    'Authorization': 'Bearer ' + authToken  // Asegúrate de incluir el token aquí
                 }
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`Error al cargar mascotas: ${response.status} - ${response.statusText}`);
+                    throw new Error(`Error al cargar citas: ${response.status} - ${response.statusText}`);
                 }
                 return response.json();
             })
-            .then(pets => {
-                const petsContainer = document.getElementById('petsContainer'); // Asegúrate de que este es el ID correcto
-                pets.forEach(pet => {
-                    console.log('Cargando mascota:', pet); // Depuración: Verificar datos de la mascota
-
-                    // Verifica si el ID de la mascota está presente
-                    if (!pet.id) {
-                        console.error('Mascota sin ID:', pet);
-                        return; // Salta esta mascota si no tiene ID
-                    }
-
-                    const petCard = document.createElement('div');
-                    petCard.className = 'col-md-4';
-                    petCard.innerHTML = `
+            .then(data => {
+                const appointmentsContainer = document.getElementById('appointmentsContainer');
+        
+                // Obtener la fecha actual en formato Date
+                const currentDate = new Date();
+        
+                // Filtrar las citas para quedarnos solo con las que tienen fecha igual o posterior a la fecha actual
+                const upcomingAppointments = data.pending_appointments_admin.filter(appointment => new Date(appointment.date) >= currentDate);
+        
+                // Ordenar las citas filtradas por fecha
+                upcomingAppointments.sort((a, b) => new Date(a.date) - new Date(b.date));
+        
+                upcomingAppointments.forEach(appointment => {
+                    const appointmentCard = document.createElement('div');
+                    appointmentCard.className = 'col-md-4';
+                    appointmentCard.innerHTML = `
                         <div class="card mb-3">
-                            <img class="card-img-top" style="height: 150px; width:150px" src="../assets/img/huella.png" alt="Imagen de Mascota">
                             <div class="card-body">
-                                <h5 class="card-title">${pet.name}</h5>
-                                <p class="card-text">Especie: ${pet.species_name}</p>
-                                <p class="card-text">Raza: ${pet.breed}</p>
-                                <p class="card-text">Sexo: ${pet.sex}</p>
-                                <button class="btn btn-primary" onclick="deletePet(${pet.id})">Eliminar</button>
+                                <h5 class="card-title">Cita #${appointment.id}</h5>
+                                <p class="card-text">Usuario: ${appointment.user_id}</p>
+                                <p class="card-text">Mascota: ${appointment.pet_id}</p>
+                                <p class="card-text">Doctor: ${appointment.doctor_id}</p>
+                                <p class="card-text">Fecha: ${appointment.date}</p>
+                                <p class="card-text">Descripción: ${appointment.description}</p>
+                                <p class="card-text">Categoría: ${appointment.category_id}</p>
+                                <button class="btn btn-primary" onclick="deleteAppointment(${appointment.id})">Cancelar Cita</button>
+                                <button class="btn btn-primary" onclick="finishAppointment(${appointment.id})">Finalizar Cita</button>
                             </div>
                         </div>
                     `;
-                    petsContainer.appendChild(petCard);
+                    appointmentsContainer.appendChild(appointmentCard);
                 });
             })
             .catch(error => {
                 console.error('Error en la solicitud:', error);
-                alert(`Error al cargar las mascotas: ${error.message}`);
+                alert(`Error al cargar las citas: ${error.message}`);
             });
         });
-
-        function deletePet(pet_id) {
-            console.log('Intentando eliminar mascota con ID:', pet_id); // Depuración: Verificar el ID de la mascota
-            if (!pet_id) {
-                alert('ID de mascota no válido.');
+        
+        
+        
+        function deleteAppointment(appointment_id) {
+            console.log('Intentando eliminar cita con ID:', appointment_id); // Depuración: Verificar el ID de la cita
+            if (!appointment_id) {
+                alert('ID de cita no válido.');
                 return;
             }
-            if (confirm('¿Estás seguro de querer eliminar esta mascota?')) {
-                fetch(`http://127.0.0.1:5000/pets/deleteadmin/${pet_id}`, {
-                    method: 'PUT', // Utiliza el método DELETE si es necesario
+            if (confirm('¿Estás seguro de querer cancelar esta cita?')) {
+                fetch(`http://127.0.0.1:5000/appointments/delete/${appointment_id}`, {
+                    method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + sessionStorage.getItem('authToken') // Asegúrate de incluir el token aquí
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('authToken')
                     }
                 })
                 .then(response => {
@@ -375,20 +425,62 @@
                     return response.json();
                 })
                 .then(data => {
-                    if (data && data.message === 'Pet successfully deleted') {
-                        alert('Mascota eliminada correctamente');
+                    if (data && data.message === 'Appointment successfully deleted') {
+                        alert('Cita cancelada correctamente');
                         location.reload(); 
                     } else {
-                        throw new Error('Unexpected server response');
+                        throw new Error(data.message || 'Unexpected server response');
                     }
                 })
                 .catch(error => {
-                    console.error('Error deleting pet:', error);
-                    alert('Error al eliminar la mascota. Por favor, intenta de nuevo más tarde.');
+                    console.error('Error al eliminar la cita:', error);
+                    alert('Error al eliminar la cita. Por favor, intenta de nuevo más tarde.');
                 });
             }
         }
-    </script>
+
+
+        function finishAppointment(appointment_id) {
+            console.log('Intentando finalizar cita con ID:', appointment_id); // Depuración: Verificar el ID de la cita
+            if (!appointment_id) {
+                alert('ID de cita no válido.');
+                return;
+            }
+            if (confirm('¿Estás seguro de querer finalizar esta cita?')) {
+                fetch(`http://127.0.0.1:5000/appointments/finish/${appointment_id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('authToken')
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data && data.message === 'Appointment successfully finished') {
+                        alert('Cita finalizada correctamente');
+                        location.reload(); 
+                    } else {
+                        throw new Error(data.message || 'Unexpected server response');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al finalizar la cita:', error);
+                    alert('Error al finalizar la cita. Por favor, intenta de nuevo más tarde.');
+                });
+            }
+        }
+        
+        
+
+        
+        
+        
+        </script>
         
 
 
