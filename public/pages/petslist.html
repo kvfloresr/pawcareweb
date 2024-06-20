@@ -307,7 +307,7 @@
                 return; // Detiene la ejecución si no hay token
             }
 
-            fetch('http://127.0.0.1:5000/pets/search_admin', {
+            fetch('https://apipawcare.onrender.com/pets/search_admin', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -363,7 +363,7 @@
                 return;
             }
             if (confirm('¿Estás seguro de querer eliminar esta mascota?')) {
-                fetch(`http://127.0.0.1:5000/pets/deleteadmin/${pet_id}`, {
+                fetch(`https://apipawcare.onrender.com/pets/deleteadmin/${pet_id}`, {
                     method: 'PUT', // Utiliza el método DELETE si es necesario
                     headers: {
                         'Content-Type': 'application/json',

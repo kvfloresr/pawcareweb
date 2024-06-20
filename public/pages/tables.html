@@ -421,7 +421,7 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-        fetch('http://127.0.0.1:5000/doctors/namesdoctors', {
+        fetch('https://apipawcare.onrender.com/doctors/namesdoctors', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -460,7 +460,7 @@
             return;
         }
     
-        fetch('http://127.0.0.1:5000/categoryquotes/names', {
+        fetch('https://apipawcare.onrender.com/categoryquotes/names', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -545,7 +545,7 @@
                   return;
               }
       
-              fetch('http://127.0.0.1:5000/appointments/add_appointment_admin', {
+              fetch('https://apipawcare.onrender.com/appointments/add_appointment_admin', {
                   method: 'POST',
                   headers: {
                       'Content-Type': 'application/json',

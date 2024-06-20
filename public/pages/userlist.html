@@ -317,7 +317,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            fetch('http://127.0.0.1:5000/auth/users', {
+            fetch('https://apipawcare.onrender.com/auth/users', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -356,7 +356,7 @@
 
         function deleteUser(user_id) {
             if (confirm('¿Estás seguro de querer eliminar este usuario?')) {
-                fetch(`http://127.0.0.1:5000/auth/delete/${user_id}`, {
+                fetch(`https://apipawcare.onrender.com/auth/delete/${user_id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',

@@ -405,12 +405,12 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // Cargar nombres de roles al iniciar
-      fetch('http://127.0.0.1:5000/roles/namesroles', {
-          method: 'GET',
-          headers: {
-              'Content-Type': 'application/json',
-          }
-      })
+    fetch('https://apipawcare.onrender.com/roles/namesroles', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
       .then(response => {
           if (!response.ok) {
               throw new Error('Error: ' + response.status + ' - ' + response.statusText);

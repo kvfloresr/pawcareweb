@@ -353,7 +353,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            fetch('http://127.0.0.1:5000/doctors/search', {
+            fetch('https://apipawcare.onrender.com/doctors/search', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -432,7 +432,7 @@
                 doctor_image: doctorImage
             };
         
-            fetch(`http://127.0.0.1:5000/doctors/edit/${doctorId}`, {
+            fetch(`https://apipawcare.onrender.com/doctors/edit/${doctorId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -461,7 +461,7 @@
         
         function deleteDoctor(doctorId) {
             if (confirm('¿Estás seguro de querer eliminar este doctor?')) {
-                fetch(`http://127.0.0.1:5000/doctors/delete/${doctorId}`, {
+                fetch(`https://apipawcare.onrender.com/doctors/delete/${doctorId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',

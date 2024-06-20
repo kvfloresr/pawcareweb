@@ -433,7 +433,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            fetch('http://127.0.0.1:5000/doctors/namesdoctors', {
+            fetch('https://apipawcare.onrender.com/doctors/namesdoctors', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -489,7 +489,7 @@
         
                     console.log("Datos enviados:", medicalRecordData);  
         
-                    fetch('http://127.0.0.1:5000/medicalrecord/add', {
+                    fetch('https://apipawcare.onrender.com/medicalrecord/add', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

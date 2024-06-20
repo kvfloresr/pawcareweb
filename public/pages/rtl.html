@@ -575,7 +575,7 @@
                 return;
             }
     
-            fetch('http://127.0.0.1:5000/doctors/add', {
+            fetch('https://apipawcare.onrender.com/doctors/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -603,7 +603,7 @@
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         // Load specialties names on start
-        fetch('http://127.0.0.1:5000/specialties/namespecialties', {
+        fetch('https://apipawcare.onrender.com/specialties/namespecialties', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

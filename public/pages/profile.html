@@ -458,7 +458,7 @@
         });
 
         function fetchUserProfile() {
-          fetch('http://127.0.0.1:5000/auth/users/logged', {  // Asegúrate de que esta URL coincida con la ruta de tu API
+          fetch('https://apipawcare.onrender.com/auth/users/logged', {  // Asegúrate de que esta URL coincida con la ruta de tu API
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}` // Suponiendo que el token JWT está almacenado en localStorage

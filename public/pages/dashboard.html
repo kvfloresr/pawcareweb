@@ -564,7 +564,7 @@
       events: [] // Inicialmente vacío, cargaremos los eventos dinámicamente
     });
 
-    fetch('http://127.0.0.1:5000/appointments/pendingappointmentadmin', {
+    fetch('https://apipawcare.onrender.com/appointments/pendingappointmentadmin', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -619,7 +619,7 @@
         return; 
     }
 
-    fetch('http://127.0.0.1:5000/appointments/pendingappointmentadmin', {
+    fetch('https://apipawcare.onrender.com/appointments/pendingappointmentadmin', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

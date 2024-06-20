@@ -332,7 +332,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            fetch('http://127.0.0.1:5000/specialties/search', {
+            fetch('https://apipawcare.onrender.com/specialties/search', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -397,7 +397,7 @@
                     description: description
                 };
             
-                fetch(`http://127.0.0.1:5000/specialties/edit/${specialtyId}`, {
+                fetch(`https://apipawcare.onrender.com/specialties/edit/${specialtyId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -423,7 +423,7 @@
             
             function deleteSpecialty(specialtyId) {
                 if (confirm('¿Estás seguro de querer eliminar esta especialidad?')) {
-                    fetch(`http://127.0.0.1:5000/specialties/delete/${specialtyId}`, {
+                    fetch(`https://apipawcare.onrender.com/specialties/delete/${specialtyId}`, {
                         method: 'PUT',  
                         headers: {
                             'Content-Type': 'application/json',

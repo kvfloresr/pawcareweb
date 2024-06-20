@@ -350,7 +350,7 @@
                 return; // Detiene la ejecución si no hay token
             }
         
-            fetch('http://127.0.0.1:5000/appointments/pendingappointmentadmin', {
+            fetch('https://apipawcare.onrender.com/appointments/pendingappointmentadmin', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -411,7 +411,7 @@
                 return;
             }
             if (confirm('¿Estás seguro de querer cancelar esta cita?')) {
-                fetch(`http://127.0.0.1:5000/appointments/delete/${appointment_id}`, {
+                fetch(`https://apipawcare.onrender.com/appointments/delete/${appointment_id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -447,7 +447,7 @@
                 return;
             }
             if (confirm('¿Estás seguro de querer finalizar esta cita?')) {
-                fetch(`http://127.0.0.1:5000/appointments/finish/${appointment_id}`, {
+                fetch(`https://apipawcare.onrender.com/appointments/finish/${appointment_id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
