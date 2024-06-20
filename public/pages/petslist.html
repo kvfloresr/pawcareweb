@@ -330,6 +330,7 @@
                         console.error('Mascota sin ID:', pet);
                         return; // Salta esta mascota si no tiene ID
                     }
+                    
 
                     const petCard = document.createElement('div');
                     petCard.className = 'col-md-4';
@@ -342,6 +343,7 @@
                                 <p class="card-text">Raza: ${pet.breed}</p>
                                 <p class="card-text">Sexo: ${pet.sex}</p>
                                 <button class="btn btn-primary" onclick="deletePet(${pet.id})">Eliminar</button>
+                                <button class="btn btn-primary" onclick="window.location.href='../pages/petmedicalrecords.html'">Registrar Historial Médico</button>
                             </div>
                         </div>
                     `;
@@ -392,7 +394,7 @@
         
 
 
-
+    
 
 
     </body>

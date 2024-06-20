@@ -276,6 +276,27 @@
                 <div class="col-12">
                     <div class="card mb-4">
                         <div class="card-header pb-0">
+                            <h6>Mascotas</h6>
+                        </div>
+                        <div class="card-body px-0 pt-0 pb-2">
+                            <div class="table-responsive p-0">
+                                <div class="container-fluid py-4">
+                                    <div class="row" id="petsContainer">
+                                        <!-- Las tarjetas de mascotas se añadirán aquí dinámicamente -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid py-4">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mb-4">
+                        <div class="card-header pb-0">
                             <h6>Historiales médicos registrados</h6>
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
@@ -290,7 +311,9 @@
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>
+
+        
         <!-- Modal para editar historial médico -->
         <div class="modal fade" id="editMedicalRecordModal" tabindex="-1" aria-labelledby="editMedicalRecordModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -337,18 +360,63 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const token = sessionStorage.getItem('authToken');
-            if (!token) {
+            const authToken = sessionStorage.getItem('authToken');
+            if (!authToken) {
+                alert('No estás autenticado o tu sesión ha expirado.');
+                return;
+            }
+    
+            fetch('http://127.0.0.1:5000/pets/search_admin', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + authToken  
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Error al cargar mascotas: ${response.status} - ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(pets => {
+                const petsContainer = document.getElementById('petsContainer');
+                pets.forEach(pet => {
+                    const petCard = document.createElement('div');
+                    petCard.className = 'col-md-4';
+                    petCard.innerHTML = `
+                        <div class="card mb-3">
+                            <img class="card-img-top" style="height: 150px; width:150px" src="../assets/img/huella.png" alt="Imagen de Mascota">
+                            <div class="card-body">
+                                <h5 class="card-title">${pet.name}</h5>
+                                <p class="card-text">Especie: ${pet.species_name}</p>
+                                <p class="card-text">Sexo: ${pet.sex}</p>
+                                <button class="btn btn-primary" onclick="loadMedicalRecords(${pet.id})">Ver Historial</button>
+                            </div>
+                        </div>
+                    `;
+                    petsContainer.appendChild(petCard);
+                });
+            })
+            .catch(error => {
+                console.error('Error en la solicitud:', error);
+                alert(`Error al cargar las mascotas: ${error.message}`);
+            });
+        });
+    
+        function loadMedicalRecords(petId) {
+            const authToken = sessionStorage.getItem('authToken');
+            if (!authToken) {
                 console.error('No autenticado: No se encontró token de autenticación.');
                 alert('No estás autenticado. Por favor, inicia sesión.');
                 return;
             }
-        
-            fetch('http://127.0.0.1:5000/medicalrecord/search', {
+    
+            fetch(`http://127.0.0.1:5000/medicalrecord/pet/${petId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + token
+                    'Authorization': 'Bearer ' + authToken
                 }
             })
             .then(response => {
@@ -357,8 +425,14 @@
                 }
                 return response.json();
             })
-            .then(records => {
+            .then(data => {
+                const records = data.medical_records; // Accede al array dentro del objeto
+                console.log('Respuesta de la API:', records); // Añade esta línea para depuración
+                if (!Array.isArray(records)) {
+                    throw new Error('La respuesta de la API no es un array');
+                }
                 const recordsContainer = document.getElementById('medicalRecordsContainer');
+                recordsContainer.innerHTML = ''; // Limpiar el contenedor antes de añadir nuevos registros
                 records.forEach(record => {
                     const recordCard = document.createElement('div');
                     recordCard.className = 'col-md-4';
@@ -374,17 +448,15 @@
                     `;
                     recordsContainer.appendChild(recordCard);
                 });
+                recordsContainer.scrollIntoView({ behavior: 'smooth' });
             })
             .catch(error => {
                 console.error('Error en la solicitud:', error);
                 alert(`Error al cargar los historiales médicos: ${error.message}`);
             });
-        });
-        
-        
-        </script>
-        
-            
+        }
+    </script>
+    
         
 
 

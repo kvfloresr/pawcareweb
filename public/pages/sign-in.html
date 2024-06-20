@@ -135,24 +135,24 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       var loginForm = document.getElementById('loginForm');
-  
+    
       loginForm.addEventListener('submit', function(e) {
         e.preventDefault();
-  
+    
         var email = document.getElementById('email').value;
         var password = document.getElementById('password').value;
-  
+    
         if (!email || !password) {
           alert('Todos los campos son requeridos.');
           return;
         }
-  
+    
         const loginData = {
           email,
           password,
         };
-
-        fetch('http://127.0.0.1:5000/auth/login', {
+    
+        fetch('http://127.0.0.1:5000/auth/login_admin', {  // Asegúrate de usar el endpoint correcto
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -164,7 +164,8 @@
           if (data.status === 'success') {
             sessionStorage.setItem('userEmail', email);  // Almacenar el correo electrónico
             sessionStorage.setItem('authToken', data.auth_token); // Almacenar el token de autenticación
-
+            sessionStorage.setItem('userRole', data.role_name); // Almacenar el nombre del rol del usuario
+    
             alert('Inicio de sesión exitoso');
             console.log('Token recibido:', data.auth_token);
             window.location.href = '/pages/dashboard.html'; // Redirigir al dashboard
@@ -178,7 +179,9 @@
         });
       });
     });
+    
 </script>
+
 
 </body>
 

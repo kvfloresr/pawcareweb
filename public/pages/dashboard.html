@@ -203,16 +203,16 @@
             <div>
             <ul class="nav flex-column sub-menu">
               <li class="nav-item">
-                <a class="nav-link" href="../pages/rtl.html">Registro Doctores</a>
+                <a class="nav-link" href="../pages/rtl.html" onclick="checkAccess(event, 'Administrador')">Registro Doctores</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../pages/doctorslist.html">Lista de Doctores</a>
+                <a class="nav-link" href="../pages/doctorslist.html" onclick="checkAccess(event, 'Administrador')">Lista de Doctores</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../pages/virtual-reality.html">Registro Especialidades</a>
+                <a class="nav-link" href="../pages/virtual-reality.html" onclick="checkAccess(event, 'Administrador')">Registro Especialidades</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../pages/specialitieslist.html">Lista de Especialidades</a>
+                <a class="nav-link" href="../pages/specialitieslist.html" onclick="checkAccess(event, 'Administrador')">Lista de Especialidades</a>
               </li>  
             </ul>
           </div>
@@ -220,7 +220,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link"  data-bs-toggle="collapse" href="#userMenu" role="button" aria-expanded="false" aria-controls="userrMenu">
-            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center" >
               <svg width="12px" height="12px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>settings</title>
                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -238,14 +238,14 @@
             </div>
             <span class="nav-link-text ms-1">Usuarios</span>
           </a>
-          <div class="collapse" id="userMenu">
+          <div class="collapse" id="userMenu" >
             <div>
             <ul class="nav flex-column sub-menu">
               <li class="nav-item">
-                <a class="nav-link" href="../pages/sign-up.html">Registro Usuarios</a>
+                <a class="nav-link" href="../pages/sign-up.html" onclick="checkAccess(event, 'Administrador')">Registro Usuarios</a>
               </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../pages/userlist.html">Lista de Usuarios</a>
+                    <a class="nav-link" href="../pages/userlist.html" onclick="checkAccess(event, 'Administrador')">Lista de Usuarios</a>
                 </li>
             </ul>
           </div>
@@ -675,6 +675,21 @@
 
 
 </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    
+  });
+
+  function checkAccess(event, requiredRole) {
+    var userRole = sessionStorage.getItem('userRole');
+    if (userRole !== requiredRole) {
+      event.preventDefault();
+      alert('Acceso denegado. No tienes permiso para acceder a esta sección.');
+    }
+  }
+</script>
+
 
 
 
